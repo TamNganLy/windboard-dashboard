@@ -3,13 +3,6 @@ import "leaflet/dist/leaflet.css";
 import Balloon from "./Balloon";
 
 export default function MyMap({ balloons }) {
-  // if (balloons.length === 0) return <p>Loading map...</p>;
-  // if(balloons) {
-
-  //   console.log(balloons.length);
-  //   console.log(typeof(balloons));
-  // }
-  // const center_point = balloons[0];
   return (
     <MapContainer
       center={[35.56, -110.17]}

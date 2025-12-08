@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { fetchBalloons } from "./http";
 import "./App.css";
 import MyMap from "./components/MyMap";
+import MyButton from "./components/MyButton";
 
 function App() {
   const [cache, setCache] = useState({});
-  const [selectedHour, setSelectedHour] = useState(null);
+  const [selectedHour, setSelectedHour] = useState(0);
 
   const currentHourDiff = 0;
 
@@ -18,7 +19,7 @@ function App() {
     fetchCurrentHour();
   }, []);
 
-  async function handleClick(hourDiff) {
+  async function getDataByHour(hourDiff) {
     setSelectedHour(hourDiff);
 
     // Return if data has already fetched.
@@ -31,26 +32,14 @@ function App() {
     }));
   }
 
-  function getButtonLabel(hourDiff) {
-    const date = new Date();
-    date.setHours(date.getHours() - hourDiff);
-    const hours = date.getHours();
-    const ampm = hours >= 12 ? "PM" : "AM";
-    const displayHour = hours % 12 === 0 ? 12 : hours % 12;
-    return `${displayHour} ${ampm}`;
-  }
-
   return (
     <>
       <h1>Windborne Dashboard</h1>
 
       <div>
         {Array.from({ length: 24 }).map((_, i) => {
-          const hourDiff = 23 - i;
           return (
-            <button key={hourDiff} onClick={() => handleClick(hourDiff)}>
-              {getButtonLabel(hourDiff)}
-            </button>
+            <MyButton key={i} OnClick={getDataByHour} id={i}/>
           );
         })}
       </div>
