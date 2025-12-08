@@ -10,16 +10,22 @@ export async function fetchBalloonData() {
 
     try {
       const response = await axios.get(url);
-      // console.log("Hour", i, response.data);
       data.push(response.data);
-    } catch(err) {
+    } catch (err) {
       console.error("Error fetching:", filename, err);
     }
   }
-
-  // data.push([15.944665233593074, 23.396717938520098, 19.904812126015592]);
-  // data.push([-56.861922642351516, 173.75347170936624, 21.974688116630116]);
-  // console.log("Inside fetchBalloonData(), data:", data);
-
   return data;
+}
+
+export async function fetchWeather(lat, lon) {
+  try {
+    const url = `https://api.open-meteo.com/v1/gfs?latitude=${lat}&longitude=${lon}&current_weather=true`;
+    const response = await axios.get(url);
+    // console.log(response.data.current_weather);
+    return response.data.current_weather;
+  } catch (err) {
+    console.warn("Failed to fetch weather for", lat, lon, err);
+    return null;
+  }
 }
