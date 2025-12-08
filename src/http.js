@@ -1,20 +1,18 @@
 import axios from "axios";
 
-export async function fetchBalloons() {
+export async function fetchBalloons(hour) {
   const data = [];
 
-  for (let i = 0; i < 24; i++) {
-    const filename = String(i).padStart(2, "0");
-    // console.log(filename);
+  const filename = String(hour).padStart(2, "0");
+    console.log(filename);
     const url = `http://localhost:3000/balloon/${filename}`;
 
     try {
       const response = await axios.get(url);
-      data.push(response.data);
+      return(response.data);
     } catch (err) {
       console.error("Error fetching:", filename, err);
     }
-  }
   return data;
 }
 
