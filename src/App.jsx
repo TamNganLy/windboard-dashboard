@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { fetchBalloonData } from './http';
+import { fetchBalloons } from './http';
 import './App.css'
 import MyMap from './components/MyMap';
 
@@ -8,7 +8,7 @@ function App() {
 
   useEffect(() => {
     async function fetchData() {
-      const result = await fetchBalloonData();
+      const result = await fetchBalloons();
       // console.log("All balloon data:", result);
       // console.log("balloon data:", result[0][0]);
       // console.log("balloon data:", result[0][1]);

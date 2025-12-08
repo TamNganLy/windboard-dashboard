@@ -4,8 +4,8 @@ import L from "leaflet";
 import markerIcon from "/icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import MyPopup from "./MyPopup";
-import { useEffect, useState } from "react";
-import { fetchWeather } from "../http";
+import { useState } from "react";
+import { fetchBalloon } from "../http";
 
 const customIcon = L.icon({
   iconUrl: markerIcon,
@@ -17,32 +17,34 @@ const customIcon = L.icon({
   shadowAnchor: [13, 41],
 });
 
-// L.Marker.prototype.options.icon = customIcon;
-
 export default function Balloon({ pos }) {
   const [weather, setWeather] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [fetching, setFetching] = useState(false);
 
-  useEffect(() => {
-    async function fetchWeatherData() {
-      const result = await fetchWeather(pos[0], pos[1]);
-      // console.log(lat, lon, result);
-
-      setWeather(result);
+  async function handlePopupOpen() {
+    if (!weather && !fetching) {
+      setFetching(true);
+      try {
+        const result = await fetchBalloon(pos[0], pos[1]);
+        setWeather(result.weather);
+        setLocation(result.location);
+      } catch (err) {
+        console.warn("Failed to fetch data for balloon:", err);
+      }
+      setFetching(false);
     }
-    fetchWeatherData();
-  }, [pos]);
+  }
 
-  // console.log("balloon pos:", pos);
   return (
     <>
-      {weather && (
-        <Marker icon={customIcon} position={[pos[0], pos[1]]}>
-          <MyPopup weather={weather} />
-        </Marker>
-      )}
-      {/* <Marker icon={customIcon} position={[pos[0], pos[1]]}>
-        <MyPopup lat={pos[0]} lon={pos[1]} />
-      </Marker> */}
+      <Marker
+        icon={customIcon}
+        position={[pos[0], pos[1]]}
+        eventHandlers={{ popupopen: handlePopupOpen }}
+      >
+        <MyPopup fetching={fetching} weather={weather} location={location} />
+      </Marker>
     </>
   );
 }
