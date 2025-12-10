@@ -53,7 +53,7 @@ app.get("/data/:lat/:lon", async (req, res) => {
         }
       });
 
-      data.location = locationResponse.data?.display_name || null;
+      data.location = locationResponse.data?.display_name || `${lat}, ${lon}`;
 
     } catch (locationErr) {
       console.warn("Location fetch failed:", locationErr.message);

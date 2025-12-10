@@ -15,10 +15,9 @@ export default function MyButton({ OnClick, id }) {
   }
 
   return (
-    <>
-      <button onClick={handleClick}>
+    
+      <button className="btn btn-outline-warning" onClick={handleClick}>
         {getButtonLabel(hourDiff)}
       </button>
-    </>
   );
 }

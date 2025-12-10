@@ -16,8 +16,8 @@ export default function MyMap({ balloons }) {
       maxBoundsViscosity={1.0}
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png"
+        attribution="&copy; Stadia Maps"
         noWrap={true}
         bounds={[
           [-90, -180],

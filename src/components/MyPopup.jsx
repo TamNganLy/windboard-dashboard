@@ -2,12 +2,13 @@ import { Popup } from "react-leaflet";
 
 export default function MyPopup({ fetching, weather, location }) {
   return (
-    <Popup>
+    <Popup className={"my-pop-up"}>
       {fetching && <p>Fetching data ...</p>}
 
       {!fetching && weather && (
         <>
           <p>{location ? <strong>{location}</strong> : <strong>Weather</strong>}</p>
+          <hr />
           <p>🌡 Temperature: {weather.temperature}°C</p>
           <p>💨 Wind: {weather.windspeed} m/s</p>
           <p>🧭 Wind Direction: {weather.winddirection}°</p>

@@ -35,13 +35,14 @@ function App() {
   return (
     <>
       <h1>Windborne Dashboard</h1>
-
-      <div>
-        {Array.from({ length: 24 }).map((_, i) => {
-          return (
-            <MyButton key={i} OnClick={getDataByHour} id={i}/>
-          );
-        })}
+      <div className="container">
+        <div className="row g-2 justify-content-center">
+          {Array.from({ length: 24 }).map((_, i) => (
+            <div className="col-xxl-1 col-xl-2 col-md-3 col-4">
+              <MyButton key={i} OnClick={getDataByHour} id={i} />
+            </div>
+          ))}
+        </div>
       </div>
 
       <MyMap balloons={cache[selectedHour]} />
