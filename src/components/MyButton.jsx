@@ -1,5 +1,6 @@
-export default function MyButton({ OnClick, id }) {
+export default function MyButton({ OnClick, id, selectedHour }) {
   const hourDiff = 23 - id;
+  const btnClass = `btn btn-outline-warning ${selectedHour === hourDiff ? "active" : ""}`;
 
   function getButtonLabel(hourDiff) {
     const date = new Date();
@@ -16,7 +17,7 @@ export default function MyButton({ OnClick, id }) {
 
   return (
     
-      <button className="btn btn-outline-warning" onClick={handleClick}>
+      <button className={btnClass} onClick={handleClick}>
         {getButtonLabel(hourDiff)}
       </button>
   );
